@@ -1,8 +1,9 @@
 const express = require("express");
 const fs = require("fs");
 const cors = require("cors"); // Import cors
+const bcrypt = require("bcrypt");
 const app = express();
-const PORT = 3000;
+const PORT = 8000;
 
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -10,29 +11,28 @@ app.use(express.json());
 // Allow requests from all origins
 app.use(cors());
 
-// Endpoint to handle user registration
-app.post("/api/register", (req, res) => {
+app.post("/api/register", async (req, res) => {
   const { username, email, password, contact } = req.body;
 
-  // Read existing users from db.json
-  const users = JSON.parse(fs.readFileSync("db.json", "utf8"));
+  try {
+    const users = JSON.parse(await fs.readFile("db.json", "utf8"));
+    const existingUser = users.find((user) => user.email === email);
+    if (existingUser) {
+      return res
+        .status(400)
+        .json({ error: "User with this email already exists" });
+    }
 
-  // Check if user with the same email already exists
-  const existingUser = users.find((user) => user.email === email);
-  if (existingUser) {
-    return res
-      .status(400)
-      .json({ error: "User with this email already exists" });
+    const hashedPassword = await bcrypt.hash(password, 10);
+    users.push({ username, email, password: hashedPassword, contact });
+    await fs.writeFile("db.json", JSON.stringify(users, null, 2));
+
+    res.status(201).json({ message: "User registered successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
   }
-
-  // Add new user to the users array
-  users.push({ username, email, password, contact });
-
-  // Write updated users array back to db.json
-  fs.writeFileSync("db.json", JSON.stringify(users, null, 2));
-
-  res.status(201).json({ message: "User registered successfully" });
 });
+
 // Endpoint to handle POST requests to /api/users with credentials
 app.post("/api/users", (req, res) => {
   const { email, password } = req.body;

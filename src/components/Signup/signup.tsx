@@ -13,10 +13,16 @@ const Signup: React.FC = () => {
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await axios.post("/api/signup", { email, password });
+      const response = await axios.post("http://localhost:8000/api/register", {
+        username,
+        email,
+        password,
+        contactNo,
+      });
+      console.log(response.data.message);
       navigate("/login");
     } catch (error) {
-      console.error("Signup error", error);
+      console.error("Signup error:", error);
     }
   };
 
