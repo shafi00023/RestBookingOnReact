@@ -7,20 +7,20 @@ const Signup: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [contactNo, setContactNo] = useState<string>("");
+  const [contact, setContactNo] = useState<string>("");
   const navigate = useNavigate();
 
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/api/register", {
+      const response = await axios.post("http://localhost:3000/api/register", {
         username,
         email,
         password,
-        contactNo,
+        contact,
       });
       console.log(response.data.message);
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       console.error("Signup error:", error);
     }
@@ -66,7 +66,7 @@ const Signup: React.FC = () => {
             <label>Contact No:</label>
             <input
               type="tel"
-              value={contactNo}
+              value={contact}
               onChange={(e) => setContactNo(e.target.value)}
               required
             />
