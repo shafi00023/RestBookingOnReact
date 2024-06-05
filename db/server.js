@@ -30,7 +30,9 @@ app.post("/api/register", async (req, res) => {
     const existingUser = users.find((user) => user.email === email);
 
     if (existingUser) {
-      return res.status(400).json({ error: "User with this email already exists" });
+      return res
+        .status(400)
+        .json({ error: "User with this email already exists" });
     }
 
     // const hashedPassword = await bcrypt.hash(password, 10);
@@ -45,18 +47,21 @@ app.post("/api/register", async (req, res) => {
 });
 
 // Endpoint to handle POST requests to /api/users with credentials
-app.post("/api/users", async (req, res) => {
+app.post("/api/user", async (req, res) => {
   const { email, password } = req.body;
 
   try {
     const users = await readJsonFile("db.json");
-    const user = users.find((user) => user.email === email && bcrypt.compareSync(password, user.password));
+
+    const user = users.find(
+      (user) => user.email === email && user.password === password
+    );
 
     if (!user) {
       return res.status(401).json({ error: "Invalid email or password" });
     }
 
-    res.status(200).json(user);
+    res.status(200).json();
   } catch (error) {
     console.error("Error during user authentication:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -119,7 +124,9 @@ app.put("/api/bookings/:id", async (req, res) => {
 
   try {
     const bookings = await readJsonFile("booking.json");
-    const bookingIndex = bookings.findIndex((booking) => booking.bookingId == bookingId);
+    const bookingIndex = bookings.findIndex(
+      (booking) => booking.bookingId == bookingId
+    );
 
     if (bookingIndex === -1) {
       return res.status(404).json({ error: "Booking not found" });
@@ -156,7 +163,10 @@ try {
 
 // Function to generate a unique ID
 function generateId() {
-  const maxId = tables.reduce((max, table) => (table.id > max ? table.id : max), 0);
+  const maxId = tables.reduce(
+    (max, table) => (table.id > max ? table.id : max),
+    0
+  );
   return maxId + 1;
 }
 
@@ -185,10 +195,14 @@ app.get("/api/checkAvailability", async (req, res) => {
       (booking) => booking.date === date && booking.time === time
     );
 
-    const availableTables = tables.filter((table) => table.capacity >= partySize);
+    const availableTables = tables.filter(
+      (table) => table.capacity >= partySize
+    );
 
     const overlappingTables = availableTables.filter((table) => {
-      return bookingsOnDateTime.some((booking) => booking.tableno === table.tableNo);
+      return bookingsOnDateTime.some(
+        (booking) => booking.tableno === table.tableNo
+      );
     });
 
     const filteredTables = availableTables.filter(
