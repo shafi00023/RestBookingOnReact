@@ -16,7 +16,7 @@ const Login: React.FC = () => {
         password,
       });
       localStorage.setItem("token", response.data.token);
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Login error", error);
     }
