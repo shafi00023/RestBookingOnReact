@@ -1,0 +1,15 @@
+/* src/Header.css */
+.header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    height: 60px;
+}
+
+.header p{
+    margin: 0;
+}
