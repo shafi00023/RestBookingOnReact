@@ -1,10 +1,17 @@
 import React from "react";
+import Header from "../Header/header";
+import Sidebar from "../Sidebar/sidebar";
+import MainContainer from "../MainContainer/maincontainer";
+import "./dashboard.css";
 
 const Dashboard: React.FC = () => {
   return (
     <div>
-      <h2>Home</h2>
-      <p>Welcome to the home page!</p>
+      <Header />
+      <div className="containers">
+        <Sidebar />
+        <MainContainer />
+      </div>
     </div>
   );
 };
