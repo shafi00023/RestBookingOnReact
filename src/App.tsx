@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Login/login";
 import Signup from "./components/Signup/signup";
 import Dashboard from "./components/Dashboard/dashboard";
+import BookTable from "./components/BookTable/booktable";
 
 const App: React.FC = () => {
   return (
@@ -12,7 +13,7 @@ const App: React.FC = () => {
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/booktable" element={<Dashboard />} />
+        <Route path="/booktable" element={<BookTable />} />
       </Routes>
     </Router>
   );

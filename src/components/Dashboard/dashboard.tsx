@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "../Header/header";
 import Sidebar from "../Sidebar/sidebar";
-import MainContainer from "../MainContainer/maincontainer";
 import "./dashboard.css";
 
 const Dashboard: React.FC = () => {
@@ -10,7 +9,10 @@ const Dashboard: React.FC = () => {
       <Header />
       <div className="containers">
         <Sidebar />
-        <MainContainer />
+        <div className="dashboard">
+          <h2>Dashboard</h2>
+          <p>Dashboard content goes here.</p>
+        </div>
       </div>
     </div>
   );
