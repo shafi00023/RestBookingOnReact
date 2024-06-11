@@ -1,33 +1,58 @@
 import React, { useState } from "react";
 import "./booktable.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "../Sidebar/sidebar";
 import Header from "../Header/header";
+import axios from "axios";
 
 const BookTable = () => {
-  const [bookingData, setBookingData] = useState({
+  const initialBookingData = {
     name: "",
     email: "",
     date: "",
     time: "",
     partySize: 1,
-  });
+  };
 
+  const [bookingData, setBookingData] = useState(initialBookingData);
   const [availableTables, setAvailableTables] = useState<string[]>([]);
   const [selectedTable, setSelectedTable] = useState("");
 
-  const handleChange = (e: any) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setBookingData({
       ...bookingData,
       [name]: value,
     });
   };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted:", bookingData, selectedTable);
-  };
 
+    const bookingStatus = "pending";
+
+    const bookingPayload = {
+      ...bookingData,
+      selectedTable,
+      bookingStatus,
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/book-table",
+        bookingPayload
+      );
+      console.log("Table booked successfully:", response.data);
+      setBookingData(initialBookingData);
+      setSelectedTable("");
+      setAvailableTables([]);
+      toast.success("Table booked successfully!");
+    } catch (error) {
+      console.error("Error booking table:", error);
+    }
+  };
   const checkAvailability = () => {
     const tables: string[] = ["Table 1", "Table 2", "Table 3"];
     setAvailableTables(tables);
@@ -119,6 +144,7 @@ const BookTable = () => {
           </form>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

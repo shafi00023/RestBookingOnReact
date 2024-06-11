@@ -5,6 +5,36 @@
     width: 100%;
 }
 .dashboard{
-    margin-left: 210px; 
+    margin-left: 200px; 
     padding: 20px;
+    width: 100%;
+}
+
+.dashboard h2{
+    text-align: center;
+    border: 4px dotted #514d4d;
+    padding: 10px;
+    margin: 0;
+    font-size: 20px;
+    background-color: gainsboro;
+}
+
+.show-booking{
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.show-booking .booking{
+    width: 47%;
+    background-color: #b5d0c7;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    background: linear-gradient(to right, #00BCD4, #2196F3);
+    color: aliceblue;
+}
+
+.show-booking .booking p{
+    margin:0;
+    padding-bottom: 8px;
 }

@@ -1,1 +1,29 @@
-[]
+[
+  {
+    "bookingId": 424615,
+    "name": "jaini",
+    "email": "jaini@gmail.com",
+    "date": "2024-06-12",
+    "time": "08:48",
+    "partySize": "5",
+    "bookingStatus": "pending"
+  },
+  {
+    "bookingId": 329644,
+    "name": "trupti",
+    "email": "trupti@gmail.com",
+    "date": "2024-06-12",
+    "time": "07:51",
+    "partySize": "4",
+    "bookingStatus": "pending"
+  },
+  {
+    "bookingId": 203689,
+    "name": "varsha",
+    "email": "varsha@gmail.com",
+    "date": "2024-06-12",
+    "time": "07:13",
+    "partySize": "4",
+    "bookingStatus": "pending"
+  }
+]
