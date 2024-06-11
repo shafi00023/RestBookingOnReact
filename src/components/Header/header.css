@@ -1,8 +1,11 @@
 .header {
-    background-color: #e85a4f;
+    background-color: #3F51B5;
     padding: 0px 20px;
     color: white;
     height: 60px;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
   }
   
   .header-main-wrapper {
