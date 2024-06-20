@@ -1,39 +1,35 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./login.css";
+import "./adminLogin.css";
 
-const Login: React.FC = () => {
+const AdminLogin: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleAdminLogin = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    try {
-      const response = await axios.post("http://localhost:8000/api/user", {
-        email,
-        password,
-      });
-      localStorage.setItem("token", response.data.token);
-      navigate("/dashboard");
-    } catch (error) {
-      console.error("Login error", error);
+    const staticEmail = "admin@admin.com";
+    const staticPassword = "Admin@123";
+
+    if (email === staticEmail && password === staticPassword) {
+      alert("Login successful");
+      // Redirect to the admin dashboard or home page
+      window.location.href = "/admin-dashboard"; // Change this URL to your admin dashboard route
+    } else {
+      alert("Invalid email or password");
     }
   };
-  const handleSignupRedirect = () => {
-    navigate("/signup");
-  };
-
-  const handleAdminRedirect = () => {
-    navigate("/adminLogin");
+  const handleloginRedirect = () => {
+    navigate("/login");
   };
 
   return (
     <div className="login-container">
       <div className="login-card">
-        <h2>Login</h2>
-        <form className="login-form" onSubmit={handleLogin}>
+        <h2>Admin Login</h2>
+        <form className="login-form" onSubmit={handleAdminLogin}>
           <div className="login-devision">
             <label>Email:</label>
             <input
@@ -52,12 +48,9 @@ const Login: React.FC = () => {
               required
             />
           </div>
-          <button type="submit">Login</button>
-          <button onClick={handleSignupRedirect} className="signup-button">
-            Don't have an account? Sign up
-          </button>
-          <button onClick={handleAdminRedirect} className="signup-button">
-           Admin Login
+          <button type="submit">Admin Login</button>
+          <button onClick={handleloginRedirect} className="signup-button">
+            Go Back to Login
           </button>
         </form>
       </div>
@@ -65,4 +58,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default AdminLogin;
