@@ -5,6 +5,7 @@ import Login from "./components/Login/login";
 import Signup from "./components/Signup/signup";
 import Dashboard from "./components/Dashboard/dashboard";
 import BookTable from "./components/BookTable/booktable";
+import AdminLogin from "./components/AdminLogin/adminLogin";
 
 const App: React.FC = () => {
   return (
@@ -14,6 +15,7 @@ const App: React.FC = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/booktable" element={<BookTable />} />
+        <Route path="/adminLogin" element={<AdminLogin />} />
       </Routes>
     </Router>
   );
