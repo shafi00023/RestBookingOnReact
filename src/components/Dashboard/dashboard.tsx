@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../Header/header";
 import Sidebar from "../Sidebar/sidebar";
 import "./dashboard.css";
@@ -15,6 +16,7 @@ type Booking = {
 
 const Dashboard: React.FC = () => {
   const [bookings, setBookings] = useState<Booking[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -30,6 +32,10 @@ const Dashboard: React.FC = () => {
 
     fetchBookings();
   }, []);
+
+  const handleEdit = (bookingId: number) => {
+    navigate(`/edit-booking/${bookingId}`);
+  };
   return (
     <div>
       <Header />
@@ -49,6 +55,12 @@ const Dashboard: React.FC = () => {
                     <p>Time: {booking.time}</p>
                     <p>Party Size: {booking.partySize}</p>
                     <p>Booking Status: {booking.bookingStatus}</p>
+                    <button
+                      onClick={() => handleEdit(booking.bookingId)}
+                      className="edit-button"
+                    >
+                      Edit
+                    </button>
                   </div>
                 ))}
               </div>
