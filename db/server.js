@@ -118,6 +118,7 @@ function generateBookingId() {
 }
 
 // Endpoint to handle booking updates
+
 app.put("/api/bookings/:id", async (req, res) => {
   const bookingId = req.params.id;
   const updatedBooking = req.body;
@@ -138,6 +139,24 @@ app.put("/api/bookings/:id", async (req, res) => {
     res.status(200).json({ message: "Booking updated successfully" });
   } catch (error) {
     console.error("Error updating booking:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.get("/api/bookings/:id", async (req, res) => {
+  const bookingId = req.params.id;
+
+  try {
+    const bookings = await readJsonFile("booking.json");
+    const booking = bookings.find((b) => b.bookingId == bookingId);
+
+    if (!booking) {
+      return res.status(404).json({ error: "Booking not found" });
+    }
+
+    res.status(200).json(booking);
+  } catch (error) {
+    console.error("Error fetching booking data:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
