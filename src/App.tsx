@@ -7,6 +7,7 @@ import Dashboard from "./components/Dashboard/dashboard";
 import BookTable from "./components/BookTable/booktable";
 import AdminLogin from "./components/AdminLogin/adminLogin";
 import EditBooking from "./components/EditBooking/editbooking";
+import AdminDashboard from "./components/AdminDashboard/adminDashboard";
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const App: React.FC = () => {
         <Route path="/booktable" element={<BookTable />} />
         <Route path="/edit-booking/:id" element={<EditBooking />} />
         <Route path="/adminLogin" element={<AdminLogin />} />
+        <Route path="/adminDashboard" element={<AdminDashboard />} />
       </Routes>
     </Router>
   );

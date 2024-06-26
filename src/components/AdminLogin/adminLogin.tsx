@@ -16,7 +16,7 @@ const AdminLogin: React.FC = () => {
     if (email === staticEmail && password === staticPassword) {
       alert("Login successful");
       // Redirect to the admin dashboard or home page
-      window.location.href = "/admin-dashboard"; // Change this URL to your admin dashboard route
+      window.location.href = "/adminDashboard"; // Change this URL to your admin dashboard route
     } else {
       alert("Invalid email or password");
     }
